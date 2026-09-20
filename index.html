@@ -639,7 +639,7 @@
     mapa:       "https://www.google.com/maps/place/Rosales+Sal%C3%B3n+y+eventos/data=!4m2!3m1!1s0x0:0x7934746aa369d8fd",
 
     plan:       "Comemos primero y después joda hasta las 4.",
-    codigo:     "Ponete lindo, pero cómodo. Se baila.",
+    codigo:     "",                     // si se llena, aparece bajo el plan de la noche
     traer:      "Nosotros ponemos la comida. El alcohol lo traés vos.",
 
     confirmarAntes: "",                  // "el 28 de septiembre"
@@ -715,6 +715,7 @@
     $("referencia").textContent = EVENTO.referencia;
     $("plan").textContent = EVENTO.plan;
     $("codigo").textContent = EVENTO.codigo;
+    $("codigo").hidden = !EVENTO.codigo;
     $("traer").textContent = EVENTO.traer;
 
     $("talon-nota").textContent = EVENTO.confirmarAntes
