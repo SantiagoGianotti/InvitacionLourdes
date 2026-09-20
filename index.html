@@ -572,10 +572,10 @@
         <circle cx="43" cy="71" r="1.7" fill="#E3A9A0"></circle>
       </svg>
 
-      <p class="previo" id="previo">Me recibo</p>
-      <h1 class="nombre" id="nombre">Lourdes</h1>
-      <p class="apellido" id="apellido">Ruesjas Aebicher</p>
-      <p class="grado" id="grado">Ingeniera en Geodesia y Geofísica</p>
+      <p class="previo">Me recibo</p>
+      <h1 class="nombre">Lourdes</h1>
+      <p class="apellido">Ruesjas Aebicher</p>
+      <p class="grado">Ingeniera Geodesta y Geofísica</p>
 
       <svg class="red" viewBox="0 0 230 26" aria-hidden="true">
         <g stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5">
@@ -593,25 +593,25 @@
         </g>
       </svg>
 
-      <p class="frase" id="frase"></p>
+      <p class="frase">Me pasé la carrera midiendo dónde queda cada cosa.
+        El sábado hay una sola coordenada que importa.</p>
 
       <div class="cuerpo">
-        <p class="cuando" id="cuando"></p>
-        <p class="hora" id="hora"></p>
+        <p class="cuando">Sábado 3 de octubre</p>
+        <p class="hora">De 22 a 4 de la mañana</p>
 
-        <p class="lugar" id="lugar"></p>
-        <p class="direccion" id="direccion"></p>
-        <p class="comollegar" id="referencia"></p>
+        <p class="lugar">Quincho Rosales</p>
+        <p class="direccion">Camino Vecinal alt. Diagonal Leccese km&nbsp;20, Tafí Viejo</p>
+        <p class="comollegar">Entrando por Diagonal Norte, pasando la YPF Lomas de Tafí</p>
 
-        <p class="plan" id="plan"></p>
-        <p class="codigo" id="codigo"></p>
-        <p class="traer" id="traer"></p>
+        <p class="plan">Comemos primero y después joda hasta las 4.</p>
+        <p class="traer">Nosotros ponemos la comida. El alcohol lo traés vos.</p>
       </div>
 
       <p class="enlaces">
-        <a id="mapa" href="#" target="_blank" rel="noopener">Cómo llegar</a>
+        <a href="https://www.google.com/maps/place/Rosales+Sal%C3%B3n+y+eventos/data=!4m2!3m1!1s0x0:0x7934746aa369d8fd" target="_blank" rel="noopener">Cómo llegar</a>
         <span class="punto" aria-hidden="true">·</span>
-        <a id="agendar" href="#talon">Agendar la fecha</a>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Festejo%20de%20recibida%20de%20Lourdes&dates=20261003T220000/20261004T040000&ctz=America/Argentina/Tucuman&location=Quincho%20Rosales%2C%20Camino%20Vecinal%20alt.%20Diagonal%20Leccese%20km%2020%2C%20Taf%C3%AD%20Viejo&details=Entrando%20por%20Diagonal%20Norte%2C%20pasando%20la%20YPF%20Lomas%20de%20Taf%C3%AD" target="_blank" rel="noopener">Agendar la fecha</a>
       </p>
 
     </div>
@@ -620,7 +620,7 @@
 
     <section class="talon" id="talon">
       <h2>¿Venís?</h2>
-      <p class="talon-nota" id="talon-nota"></p>
+      <p class="talon-nota">Avisanos así sabemos para cuántos preparar todo.</p>
 
       <form id="form" novalidate>
 
@@ -669,8 +669,8 @@
   </div>
 
   <p class="pie">
-    <span id="pie-texto"></span>
-    <span class="lugarex" id="pie-lugar"></span>
+    Te esperamos.
+    <span class="lugarex">Tafí Viejo · Tucumán</span>
   </p>
 
 </div>
@@ -683,32 +683,11 @@
   // Pegar aca la URL del web app de Apps Script (ver README).
   var PLANILLA = "https://script.google.com/macros/s/AKfycbzq2CyezEQQrRLWUMOaKSSs0QdDJtfsWpPaHb_NE8WafeeIahxX_awz-pT1vksG8Ar7/exec";
 
+  // Lo unico que el script necesita saber. El resto de los textos estan
+  // escritos en el HTML de arriba, que es donde se editan.
   var EVENTO = {
-    nombre:     "Lourdes",
-    apellido:   "Ruesjas Aebicher",
-    grado:      "Ingeniera Geodesta y Geofísica",
-    previo:     "Me recibo",
-
-    frase:      "Me pasé la carrera midiendo dónde queda cada cosa. El sábado hay una sola coordenada que importa.",
-
-    fechaISO:   "2026-10-03",
-    diaTexto:   "Sábado 3 de octubre",
-    hora:       "22:00",
-    horaFin:    "04:00",
-
-    lugar:      "Quincho Rosales",
-    direccion:  "Camino Vecinal alt. Diagonal Leccese km\u00a020, Tafí Viejo",
-    referencia: "Entrando por Diagonal Norte, pasando la YPF Lomas de Tafí",
-    mapa:       "https://www.google.com/maps/place/Rosales+Sal%C3%B3n+y+eventos/data=!4m2!3m1!1s0x0:0x7934746aa369d8fd",
-
-    plan:       "Comemos primero y después joda hasta las 4.",
-    codigo:     "",                     // si se llena, aparece bajo el plan de la noche
-    traer:      "Nosotros ponemos la comida. El alcohol lo traés vos.",
-
-    confirmarAntes: "",                  // "el 28 de septiembre"
-    whatsapp:       "",                  // solo numeros con pais: "5493815551234"
-    pie:            "Te esperamos.",
-    coordenadas:    ""                   // "26°46'12\"S 65°14'08\"O"
+    nombre:   "Lourdes",
+    whatsapp: ""      // solo numeros con pais: "5493815551234"
   };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -759,77 +738,6 @@
       ctx.lineWidth = maestra ? 1 : 0.7;
       ctx.stroke();
     }
-  }
-
-  // ---------- escribir la invitacion ----------
-
-  function pintar() {
-    $("previo").textContent = EVENTO.previo;
-    $("nombre").innerHTML = EVENTO.nombre || blanco("su nombre");
-    $("apellido").textContent = EVENTO.apellido;
-    $("grado").textContent = EVENTO.grado;
-    $("frase").textContent = EVENTO.frase;
-
-    $("cuando").innerHTML = EVENTO.diaTexto || blanco("día y fecha");
-    var soloHora = function (h) { return String(parseInt(h, 10)); };
-    $("hora").innerHTML = EVENTO.hora
-      ? "De " + soloHora(EVENTO.hora) + " a " + soloHora(EVENTO.horaFin) + " de la mañana"
-      : blanco("hora");
-
-    $("lugar").textContent = EVENTO.lugar;
-    $("direccion").textContent = EVENTO.direccion;
-    $("referencia").textContent = EVENTO.referencia;
-    $("plan").textContent = EVENTO.plan;
-    $("codigo").textContent = EVENTO.codigo;
-    $("codigo").hidden = !EVENTO.codigo;
-    $("traer").textContent = EVENTO.traer;
-
-    $("talon-nota").textContent = EVENTO.confirmarAntes
-      ? "Avisanos antes de " + EVENTO.confirmarAntes + ", así sabemos para cuántos preparar todo."
-      : "Avisanos así sabemos para cuántos preparar todo.";
-
-    $("pie-texto").textContent = EVENTO.pie;
-    $("pie-lugar").textContent = EVENTO.coordenadas
-      ? "Tafí Viejo · Tucumán · " + EVENTO.coordenadas
-      : "Tafí Viejo · Tucumán";
-
-    if (EVENTO.mapa) { $("mapa").href = EVENTO.mapa; } else { $("mapa").hidden = true; }
-    if (!EVENTO.whatsapp) $("btn-copiar").textContent = "o copiar la respuesta y mandarla vos";
-
-    pintarAgendar();
-  }
-
-  function pintarAgendar() {
-    var a = $("agendar");
-    if (!EVENTO.fechaISO || !EVENTO.hora) return; // sin fecha queda como ancla al talon
-
-    var inicio = new Date(EVENTO.fechaISO + "T" + EVENTO.hora + ":00");
-    if (isNaN(inicio.getTime())) return;
-
-    var fin = new Date(inicio.getTime());
-    if (EVENTO.horaFin) {
-      var hm = EVENTO.horaFin.split(":");
-      fin.setHours(parseInt(hm[0], 10), parseInt(hm[1] || "0", 10), 0, 0);
-      if (fin <= inicio) fin.setDate(fin.getDate() + 1); // cruza la medianoche
-    } else {
-      fin.setHours(fin.getHours() + 4);
-    }
-
-    var sello = function (d) {
-      return d.getFullYear() +
-        String(d.getMonth() + 1).padStart(2, "0") +
-        String(d.getDate()).padStart(2, "0") + "T" +
-        String(d.getHours()).padStart(2, "0") +
-        String(d.getMinutes()).padStart(2, "0") + "00";
-    };
-
-    a.href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-      "&text=" + encodeURIComponent("Festejo de recibida de " + EVENTO.nombre) +
-      "&dates=" + sello(inicio) + "/" + sello(fin) +
-      "&location=" + encodeURIComponent(EVENTO.lugar + ", " + EVENTO.direccion) +
-      "&details=" + encodeURIComponent(EVENTO.referencia || "Nos vemos ahí.");
-    a.target = "_blank";
-    a.rel = "noopener";
   }
 
   // ---------- el talon ----------
@@ -999,7 +907,6 @@
     agradecer(guardado);
   }
 
-  pintar();
   sincronizarDieta();
   recordarRespuesta();
   dibujarCurvas();
