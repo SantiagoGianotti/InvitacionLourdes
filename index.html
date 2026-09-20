@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Me recibo · Lourdes">
+<meta property="og:description" content="Sábado 3 de octubre, 22h, Quincho Rosales. Confirmá si venís.">
+<meta property="og:image" content="portada.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<title>Lourdes se recibió</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Karla:ital,wght@0,300;0,400;0,500;1,400&display=swap">
+
+<style>
+  /* Una sola hoja de papel ciruela con talon desprendible abajo.
+     Atmosfera unica por decision: no sigue el tema del visor, asi que
+     cada color se pinta explicitamente. */
+  :root {
+    --ciruela:       #2E1528;
+    --ciruela-hondo: #1B0C18;
+    --papel:         #F9EBEF;
+    --papel-tenue:   #CDAEBC;
+    --rosa:          #E3A9A0;
+    --rosa-alto:     #F7D2C7;
+    --linea:         rgba(249, 235, 239, 0.14);
+    --si:            #A8D5B5;
+    --no:            #CE6F84;
+
+    --display: "Bodoni Moda", Didot, "Times New Roman", serif;
+    --texto:   "Karla", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  :root {
+    color-scheme: dark;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+
+  body {
+    margin: 0;
+    background: var(--ciruela-hondo);
+    color: var(--papel);
+    font-family: var(--texto);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .marco {
+    max-width: 560px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 30px 56px;
+  }
+
+  .hoja {
+    position: relative;
+    background: var(--ciruela);
+    overflow: hidden;
+  }
+
+  #curvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+
+  .cara {
+    position: relative;
+    z-index: 1;
+    padding: 52px 30px 46px;
+    text-align: center;
+  }
+
+  /* ---------- encabezado ---------- */
+
+  .sello {
+    display: block;
+    width: 86px;
+    height: 86px;
+    margin: 0 auto 26px;
+    filter: drop-shadow(0 0 24px rgba(227, 169, 160, 0.2));
+  }
+  .sello .rim {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    fill: var(--rosa);
+  }
+
+  .previo {
+    margin: 0 0 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--rosa);
+  }
+
+  .nombre {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(50px, 16vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    color: var(--papel);
+  }
+
+  .apellido {
+    margin: 10px 0 0;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    text-transform: uppercase;
+    color: var(--papel-tenue);
+  }
+
+  .grado {
+    margin: 20px auto 0;
+    max-width: 20ch;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(18px, 4.8vw, 23px);
+    line-height: 1.32;
+    color: var(--rosa-alto);
+    text-wrap: balance;
+  }
+
+  /* red de triangulacion, el unico adorno */
+  .red {
+    display: block;
+    width: min(230px, 72%);
+    height: 26px;
+    margin: 26px auto;
+    color: var(--rosa);
+  }
+
+  .frase {
+    margin: 0 auto;
+    max-width: 34ch;
+    color: var(--papel-tenue);
+    font-size: 16.5px;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  /* ---------- los datos, escritos como renglones ---------- */
+
+  .cuerpo { margin-top: 38px; }
+
+  .cuando {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(25px, 7vw, 33px);
+    line-height: 1.15;
+    color: var(--papel);
+  }
+
+  .hora {
+    margin: 7px 0 0;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    color: var(--papel-tenue);
+  }
+
+  .lugar {
+    margin: 30px 0 0;
+    font-family: var(--display);
+    font-size: clamp(21px, 5.6vw, 26px);
+    color: var(--papel);
+  }
+
+  .direccion {
+    margin: 8px auto 0;
+    max-width: 36ch;
+    text-wrap: balance;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--papel-tenue);
+  }
+
+  .comollegar {
+    margin: 4px auto 0;
+    max-width: 34ch;
+    text-wrap: balance;
+    font-size: 14.5px;
+    line-height: 1.55;
+    font-style: italic;
+    color: var(--papel-tenue);
+  }
+
+  .plan {
+    margin: 32px auto 0;
+    max-width: 34ch;
+    text-wrap: balance;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--rosa-alto);
+  }
+
+  .codigo {
+    margin: 10px auto 0;
+    max-width: 30ch;
+    font-size: 15px;
+    color: var(--papel-tenue);
+  }
+
+  /* lo unico que se le pide al invitado: va entre filetes y en el
+     tono mas claro, para que no se lo saltee quien lee en diagonal */
+  .traer {
+    margin: 26px auto 0;
+    max-width: 28ch;
+    padding: 14px 0;
+    border-top: 1px solid rgba(227, 169, 160, 0.35);
+    border-bottom: 1px solid rgba(227, 169, 160, 0.35);
+    font-size: 17px;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+    color: var(--papel);
+    text-wrap: balance;
+  }
+
+  /* renglon todavia sin completar */
+  .blanco {
+    display: inline-block;
+    min-width: 7ch;
+    padding: 0 0.6ch;
+    font-family: var(--texto);
+    font-style: italic;
+    font-size: 0.62em;
+    color: var(--rosa);
+    border-bottom: 1px dashed currentColor;
+  }
+
+  /* ---------- enlaces al pie de la cara ---------- */
+
+  .enlaces {
+    margin: 34px 0 0;
+    font-size: 14px;
+    color: var(--papel-tenue);
+  }
+  .enlaces a {
+    color: var(--rosa-alto);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(247, 210, 199, 0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+  }
+  .enlaces a:hover { border-bottom-color: var(--rosa-alto); }
+  .enlaces a:focus-visible { outline: 2px solid var(--rosa-alto); outline-offset: 4px; }
+  .enlaces .punto { padding: 0 10px; opacity: 0.55; }
+
+  /* ---------- perforado del talon ---------- */
+
+  .perforado {
+    position: relative;
+    z-index: 1;
+    height: 0;
+    border-top: 1px dashed rgba(249, 235, 239, 0.22);
+  }
+  .perforado::before,
+  .perforado::after {
+    content: "";
+    position: absolute;
+    top: -11px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--ciruela-hondo);
+  }
+  .perforado::before { left: -11px; }
+  .perforado::after  { right: -11px; }
+
+  /* ---------- talon ---------- */
+
+  .talon {
+    position: relative;
+    z-index: 1;
+    padding: 38px 30px 42px;
+    text-align: center;
+  }
+
+  .talon h2 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 27px;
+    color: var(--papel);
+  }
+
+  .talon-nota {
+    margin: 6px auto 30px;
+    max-width: 30ch;
+    font-size: 14.5px;
+    color: var(--papel-tenue);
+  }
+
+  .campo { margin-bottom: 26px; text-align: left; }
+
+  .campo label,
+  .grupo-titulo {
+    display: block;
+    margin-bottom: 7px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--rosa);
+  }
+
+  /* campos con renglon, como para completar a mano */
+  input[type="text"] {
+    width: 100%;
+    font-family: var(--texto);
+    font-size: 16px;
+    color: var(--papel);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--linea);
+    border-radius: 0;
+    padding: 7px 2px;
+    transition: border-color 0.15s ease;
+  }
+  input[type="text"]::placeholder { color: rgba(205, 174, 188, 0.75); }
+  input[type="text"]:hover { border-bottom-color: rgba(249, 235, 239, 0.3); }
+  input[type="text"]:focus { border-bottom-color: var(--rosa); }
+  input[type="text"]:focus-visible { outline: 2px solid var(--rosa-alto); outline-offset: 4px; }
+
+  /* desplegables con el mismo renglon que los demas campos */
+  .desplegable { position: relative; }
+  .desplegable select {
+    width: 100%;
+    font-family: var(--texto);
+    font-size: 16px;
+    color: var(--papel);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--linea);
+    border-radius: 0;
+    padding: 7px 28px 7px 2px;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.15s ease;
+  }
+  .desplegable select:hover { border-bottom-color: rgba(249, 235, 239, 0.3); }
+  .desplegable select:focus { border-bottom-color: var(--rosa); }
+  .desplegable select:focus-visible { outline: 2px solid var(--rosa-alto); outline-offset: 4px; }
+  .desplegable::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid var(--rosa);
+    border-bottom: 1px solid var(--rosa);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  select option { background: var(--ciruela); color: var(--papel); }
+
+  .confirmar {
+    width: 100%;
+    margin-top: 6px;
+    font-family: var(--texto);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ciruela-hondo);
+    background: var(--rosa);
+    border: 0;
+    border-radius: 2px;
+    padding: 14px 22px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .confirmar:hover { background: var(--rosa-alto); }
+  .confirmar:focus-visible { outline: 2px solid var(--rosa-alto); outline-offset: 3px; }
+
+  .copiar {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--papel-tenue);
+    background: none;
+    border: 0;
+    border-bottom: 1px solid rgba(205, 174, 188, 0.4);
+    padding: 0 0 2px;
+    cursor: pointer;
+    font-family: var(--texto);
+  }
+  .copiar:hover { color: var(--papel); border-bottom-color: var(--papel); }
+  .copiar:focus-visible { outline: 2px solid var(--rosa-alto); outline-offset: 4px; }
+
+  .aviso {
+    margin: 18px auto 0;
+    max-width: 34ch;
+    min-height: 21px;
+    font-size: 14px;
+    color: var(--rosa-alto);
+  }
+  .aviso[data-tipo="error"] { color: var(--no); }
+
+  .previa {
+    margin: 16px auto 0;
+    max-width: 38ch;
+    padding-top: 14px;
+    border-top: 1px dashed var(--linea);
+    font-size: 14.5px;
+    line-height: 1.55;
+    font-style: italic;
+    color: var(--papel-tenue);
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .gracias-texto {
+    margin: 0 auto 18px;
+    max-width: 26ch;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.4;
+    color: var(--rosa-alto);
+    text-wrap: balance;
+  }
+
+  .confirmar[disabled] { opacity: 0.6; cursor: default; }
+
+  .pie {
+    margin: 26px 0 0;
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--papel-tenue);
+  }
+  .pie .lugarex {
+    display: block;
+    margin-top: 5px;
+    font-family: var(--texto);
+    font-style: normal;
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(205, 174, 188, 0.85);
+  }
+
+  @media (max-width: 430px) {
+    .cara   { padding: 42px 22px 38px; }
+    .talon  { padding: 32px 22px 36px; }
+    .respuestas { gap: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="hoja">
+    <canvas id="curvas" aria-hidden="true"></canvas>
+
+    <div class="cara">
+
+      <svg class="sello" viewBox="0 0 120 120" role="img" aria-label="Chapa de mojón geodésico">
+        <defs>
+          <path id="rim-arriba" d="M60,60 m-44,0 a44,44 0 0,1 88,0" fill="none"></path>
+          <path id="rim-abajo"  d="M60,60 m-44,0 a44,44 0 0,0 88,0" fill="none"></path>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#E3A9A0" stroke-width="2.4"
+                stroke-dasharray="1 3.2" opacity="0.6"></circle>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="#E3A9A0" stroke-width="0.7" opacity="0.5"></circle>
+
+        <text class="rim">
+          <textPath href="#rim-arriba" startOffset="50%" text-anchor="middle">Geodesia y Geofísica</textPath>
+        </text>
+        <text class="rim">
+          <textPath href="#rim-abajo" startOffset="50%" text-anchor="middle">2026</textPath>
+        </text>
+
+        <path d="M60 41 L77 71 L43 71 Z" fill="none" stroke="#F7D2C7" stroke-width="1.5"
+              stroke-linejoin="round"></path>
+        <circle cx="60" cy="61" r="2.6" fill="#F7D2C7"></circle>
+        <circle cx="60" cy="41" r="1.7" fill="#E3A9A0"></circle>
+        <circle cx="77" cy="71" r="1.7" fill="#E3A9A0"></circle>
+        <circle cx="43" cy="71" r="1.7" fill="#E3A9A0"></circle>
+      </svg>
+
+      <p class="previo" id="previo">Me recibo</p>
+      <h1 class="nombre" id="nombre">Lourdes</h1>
+      <p class="apellido" id="apellido">Ruesjas Aebicher</p>
+      <p class="grado" id="grado">Ingeniera en Geodesia y Geofísica</p>
+
+      <svg class="red" viewBox="0 0 230 26" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5">
+          <path d="M6 13 L57 5 L108 13 L57 21 Z"></path>
+          <path d="M57 5 L108 13 L159 5 L108 21 Z"></path>
+          <path d="M108 13 L159 5 L210 13 L159 21 Z"></path>
+          <path d="M210 13 L226 13 M6 13 L2 13"></path>
+        </g>
+        <g fill="currentColor">
+          <circle cx="57" cy="5" r="2"></circle>
+          <circle cx="108" cy="13" r="2.4"></circle>
+          <circle cx="159" cy="5" r="2"></circle>
+          <circle cx="57" cy="21" r="2"></circle>
+          <circle cx="159" cy="21" r="2"></circle>
+        </g>
+      </svg>
+
+      <p class="frase" id="frase"></p>
+
+      <div class="cuerpo">
+        <p class="cuando" id="cuando"></p>
+        <p class="hora" id="hora"></p>
+
+        <p class="lugar" id="lugar"></p>
+        <p class="direccion" id="direccion"></p>
+        <p class="comollegar" id="referencia"></p>
+
+        <p class="plan" id="plan"></p>
+        <p class="codigo" id="codigo"></p>
+        <p class="traer" id="traer"></p>
+      </div>
+
+      <p class="enlaces">
+        <a id="mapa" href="#" target="_blank" rel="noopener">Cómo llegar</a>
+        <span class="punto" aria-hidden="true">·</span>
+        <a id="agendar" href="#talon">Agendar la fecha</a>
+      </p>
+
+    </div>
+
+    <div class="perforado" aria-hidden="true"></div>
+
+    <section class="talon" id="talon">
+      <h2>¿Venís?</h2>
+      <p class="talon-nota" id="talon-nota"></p>
+
+      <form id="form" novalidate>
+
+        <div class="campo">
+          <label for="invitado">Tu nombre</label>
+          <input type="text" id="invitado" name="invitado" placeholder="Para anotarte en la lista" autocomplete="name">
+        </div>
+
+        <div class="campo">
+          <label for="viene">Tu respuesta</label>
+          <div class="desplegable">
+            <select id="viene" name="viene">
+              <option value="si" selected>Ahí voy a estar</option>
+              <option value="tarde">Voy, pero llego después de las 12</option>
+              <option value="no">Esta vez no puedo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo" id="campo-dieta">
+          <label for="dieta">Restricciones alimentarias</label>
+          <div class="desplegable">
+            <select id="dieta" name="dieta">
+              <option value="" selected>Ninguna, como de todo</option>
+              <option value="soy vegetariano/a">Vegetariana</option>
+              <option value="soy vegano/a">Vegana</option>
+              <option value="soy celíaco/a, necesito sin TACC">Celíaca, sin TACC</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="confirmar" id="btn-enviar">Confirmar</button>
+        <br>
+        <button type="button" class="copiar" id="btn-copiar">o mandarla por WhatsApp</button>
+
+        <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+        <p class="previa" id="previa" hidden></p>
+
+      </form>
+
+      <div class="gracias" id="gracias" hidden>
+        <p class="gracias-texto" id="gracias-texto"></p>
+        <button type="button" class="copiar" id="btn-cambiar">cambiar mi respuesta</button>
+      </div>
+    </section>
+  </div>
+
+  <p class="pie">
+    <span id="pie-texto"></span>
+    <span class="lugarex" id="pie-lugar"></span>
+  </p>
+
+</div>
+
+<script>
+  // ------------------------------------------------------------------
+  // Todo lo editable vive aca. Un campo en "" se dibuja como renglon
+  // punteado, asi la tarjeta se ve bien incluso a medio completar.
+  // ------------------------------------------------------------------
+  // Pegar aca la URL del web app de Apps Script (ver README).
+  var PLANILLA = "";
+
+  var EVENTO = {
+    nombre:     "Lourdes",
+    apellido:   "Ruesjas Aebicher",
+    grado:      "Ingeniera Geodesta y Geofísica",
+    previo:     "Me recibo",
+
+    frase:      "Me pasé la carrera midiendo dónde queda cada cosa. El sábado hay una sola coordenada que importa.",
+
+    fechaISO:   "2026-10-03",
+    diaTexto:   "Sábado 3 de octubre",
+    hora:       "22:00",
+    horaFin:    "04:00",
+
+    lugar:      "Quincho Rosales",
+    direccion:  "Camino Vecinal alt. Diagonal Leccese km\u00a020, Tafí Viejo",
+    referencia: "Entrando por Diagonal Norte, pasando la YPF Lomas de Tafí",
+    mapa:       "https://www.google.com/maps/place/Rosales+Sal%C3%B3n+y+eventos/data=!4m2!3m1!1s0x0:0x7934746aa369d8fd",
+
+    plan:       "Comemos primero y después joda hasta las 4.",
+    codigo:     "Ponete lindo, pero cómodo. Se baila.",
+    traer:      "Nosotros ponemos la comida. El alcohol lo traés vos.",
+
+    confirmarAntes: "",                  // "el 28 de septiembre"
+    whatsapp:       "",                  // solo numeros con pais: "5493815551234"
+    pie:            "Te esperamos.",
+    coordenadas:    ""                   // "26°46'12\"S 65°14'08\"O"
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  function blanco(t) { return '<span class="blanco">' + t + '</span>'; }
+
+  // ---------- curvas de nivel ----------
+  // Cada quinta curva es maestra y va mas marcada, como en una carta topografica.
+
+  function dibujarCurvas() {
+    var lienzo = $("curvas");
+    var ctx = lienzo.getContext("2d");
+    var ancho = lienzo.clientWidth;
+    var alto = lienzo.clientHeight;
+    if (!ancho || !alto) return;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    lienzo.width = Math.round(ancho * dpr);
+    lienzo.height = Math.round(alto * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, ancho, alto);
+
+    var cx = ancho * 0.5;
+    var cy = alto * 0.22;
+    var paso = Math.max(ancho * 0.064, 22);
+    var armonicos = [[3, 1.0, 0.4], [5, 0.6, 2.1], [7, 0.32, 4.3], [2, 1.25, 1.1]];
+    var vueltas = Math.ceil(Math.max(ancho, alto) / paso) + 8;
+
+    for (var n = 0; n < vueltas; n++) {
+      var base = 34 + n * paso;
+      ctx.beginPath();
+      for (var a = 0; a <= 360; a += 2) {
+        var t = a * Math.PI / 180;
+        var r = base;
+        for (var i = 0; i < armonicos.length; i++) {
+          var h = armonicos[i];
+          r += Math.sin(h[0] * t + h[2] + n * 0.17) * h[1] * (base * 0.055);
+        }
+        var x = cx + Math.cos(t) * r;
+        var y = cy + Math.sin(t) * r * 0.78;
+        if (a === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
+      }
+      ctx.closePath();
+      var maestra = n % 5 === 0;
+      ctx.strokeStyle = maestra ? "rgba(227, 169, 160, 0.20)" : "rgba(227, 169, 160, 0.07)";
+      ctx.lineWidth = maestra ? 1 : 0.7;
+      ctx.stroke();
+    }
+  }
+
+  // ---------- escribir la invitacion ----------
+
+  function pintar() {
+    $("previo").textContent = EVENTO.previo;
+    $("nombre").innerHTML = EVENTO.nombre || blanco("su nombre");
+    $("apellido").textContent = EVENTO.apellido;
+    $("grado").textContent = EVENTO.grado;
+    $("frase").textContent = EVENTO.frase;
+
+    $("cuando").innerHTML = EVENTO.diaTexto || blanco("día y fecha");
+    var soloHora = function (h) { return String(parseInt(h, 10)); };
+    $("hora").innerHTML = EVENTO.hora
+      ? "De " + soloHora(EVENTO.hora) + " a " + soloHora(EVENTO.horaFin) + " de la mañana"
+      : blanco("hora");
+
+    $("lugar").textContent = EVENTO.lugar;
+    $("direccion").textContent = EVENTO.direccion;
+    $("referencia").textContent = EVENTO.referencia;
+    $("plan").textContent = EVENTO.plan;
+    $("codigo").textContent = EVENTO.codigo;
+    $("traer").textContent = EVENTO.traer;
+
+    $("talon-nota").textContent = EVENTO.confirmarAntes
+      ? "Avisanos antes de " + EVENTO.confirmarAntes + ", así sabemos para cuántos preparar todo."
+      : "Avisanos así sabemos para cuántos preparar todo.";
+
+    $("pie-texto").textContent = EVENTO.pie;
+    $("pie-lugar").textContent = EVENTO.coordenadas
+      ? "Tafí Viejo · Tucumán · " + EVENTO.coordenadas
+      : "Tafí Viejo · Tucumán";
+
+    if (EVENTO.mapa) { $("mapa").href = EVENTO.mapa; } else { $("mapa").hidden = true; }
+    if (!EVENTO.whatsapp) $("btn-copiar").textContent = "o copiar la respuesta y mandarla vos";
+
+    pintarAgendar();
+  }
+
+  function pintarAgendar() {
+    var a = $("agendar");
+    if (!EVENTO.fechaISO || !EVENTO.hora) return; // sin fecha queda como ancla al talon
+
+    var inicio = new Date(EVENTO.fechaISO + "T" + EVENTO.hora + ":00");
+    if (isNaN(inicio.getTime())) return;
+
+    var fin = new Date(inicio.getTime());
+    if (EVENTO.horaFin) {
+      var hm = EVENTO.horaFin.split(":");
+      fin.setHours(parseInt(hm[0], 10), parseInt(hm[1] || "0", 10), 0, 0);
+      if (fin <= inicio) fin.setDate(fin.getDate() + 1); // cruza la medianoche
+    } else {
+      fin.setHours(fin.getHours() + 4);
+    }
+
+    var sello = function (d) {
+      return d.getFullYear() +
+        String(d.getMonth() + 1).padStart(2, "0") +
+        String(d.getDate()).padStart(2, "0") + "T" +
+        String(d.getHours()).padStart(2, "0") +
+        String(d.getMinutes()).padStart(2, "0") + "00";
+    };
+
+    a.href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+      "&text=" + encodeURIComponent("Festejo de recibida de " + EVENTO.nombre) +
+      "&dates=" + sello(inicio) + "/" + sello(fin) +
+      "&location=" + encodeURIComponent(EVENTO.lugar + ", " + EVENTO.direccion) +
+      "&details=" + encodeURIComponent(EVENTO.referencia || "Nos vemos ahí.");
+    a.target = "_blank";
+    a.rel = "noopener";
+  }
+
+  // ---------- el talon ----------
+
+  var form = $("form");
+  var aviso = $("aviso");
+  var previa = $("previa");
+  var MEMORIA = "rsvp-lourdes";
+
+  function decir(texto, tipo) {
+    aviso.textContent = texto;
+    aviso.dataset.tipo = tipo || "ok";
+  }
+
+  // la dieta solo tiene sentido si llega a la comida
+  function sincronizarDieta() {
+    $("campo-dieta").hidden = $("viene").value !== "si";
+  }
+
+  form.addEventListener("change", function (e) {
+    if (e.target.id === "viene") {
+      sincronizarDieta();
+      decir("");
+    }
+  });
+
+  var RESPUESTAS = {
+    si:    { planilla: "Ahí va a estar",
+             mensaje:  "Confirmo que voy al festejo de {nombre}. Ahí nos vemos.",
+             gracias:  "Listo, {invitado}. Te esperamos el sábado." },
+    tarde: { planilla: "Llega después de las 12",
+             mensaje:  "Voy al festejo de {nombre}, pero no llego a la comida. Caigo después de las 12.",
+             gracias:  "Listo, {invitado}. Te esperamos después de las 12." },
+    no:    { planilla: "No puede",
+             mensaje:  "Esta vez no llego al festejo de {nombre}, pero mandale un abrazo grande de mi parte.",
+             gracias:  "Gracias por avisar, {invitado}. Te vamos a extrañar." }
+  };
+
+  function leerFormulario() {
+    var invitado = $("invitado").value.trim();
+    if (!invitado) {
+      decir("Escribí tu nombre así sabemos quién confirma.", "error");
+      $("invitado").focus();
+      return null;
+    }
+    var respuesta = $("viene").value;
+    return {
+      invitado: invitado,
+      respuesta: respuesta,
+      dieta: respuesta === "si" ? $("dieta").value : ""
+    };
+  }
+
+  function armarMensaje(datos) {
+    var partes = ["¡Hola! Soy " + datos.invitado + "."];
+    partes.push(RESPUESTAS[datos.respuesta].mensaje.replace("{nombre}", EVENTO.nombre));
+    if (datos.dieta) partes.push("Aviso que " + datos.dieta + ".");
+    return partes.join(" ");
+  }
+
+  function mostrarPrevia(texto) {
+    previa.textContent = texto;
+    previa.hidden = false;
+  }
+
+  // ---------- guardar en la planilla ----------
+  // Cuerpo como texto plano a proposito: asi el navegador no manda preflight,
+  // que es lo que rompe cuando Apps Script redirige a googleusercontent.
+
+  function guardar(datos) {
+    return fetch(PLANILLA, {
+      method: "POST",
+      body: JSON.stringify({
+        nombre: datos.invitado,
+        respuesta: RESPUESTAS[datos.respuesta].planilla,
+        dieta: datos.dieta
+      })
+    }).then(function (r) {
+      return r.json();
+    }).then(function (j) {
+      if (!j || !j.ok) throw new Error((j && j.error) || "la planilla rechazó la respuesta");
+    });
+  }
+
+  function agradecer(datos) {
+    $("gracias-texto").textContent =
+      RESPUESTAS[datos.respuesta].gracias.replace("{invitado}", datos.invitado.split(" ")[0]);
+    form.hidden = true;
+    $("gracias").hidden = false;
+    try { localStorage.setItem(MEMORIA, JSON.stringify(datos)); } catch (e) { /* modo privado */ }
+  }
+
+  function ofrecerWhatsapp(datos, motivo) {
+    decir(motivo, "error");
+    mostrarPrevia(armarMensaje(datos));
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var datos = leerFormulario();
+    if (!datos) return;
+
+    var boton = $("btn-enviar");
+
+    if (!PLANILLA) {
+      ofrecerWhatsapp(datos, "Todavía no está conectada la planilla. Mandá tu respuesta por WhatsApp.");
+      return;
+    }
+
+    boton.disabled = true;
+    boton.textContent = "Confirmando...";
+    decir("");
+
+    guardar(datos).then(function () {
+      agradecer(datos);
+    }).catch(function (err) {
+      boton.disabled = false;
+      boton.textContent = "Confirmar";
+      ofrecerWhatsapp(datos, "No pudimos guardar tu respuesta. Mandala por WhatsApp y listo.");
+      if (window.console) console.error(err);
+    });
+  });
+
+  // ---------- respaldo por whatsapp, siempre disponible ----------
+
+  $("btn-copiar").addEventListener("click", function () {
+    var datos = leerFormulario();
+    if (!datos) return;
+    var texto = armarMensaje(datos);
+    mostrarPrevia(texto);
+
+    if (EVENTO.whatsapp) {
+      window.open("https://wa.me/" + EVENTO.whatsapp + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+      decir("Te abrimos WhatsApp. Dale enviar y listo.");
+      return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(
+        function () { decir("Copiado. Pegalo en el chat y mandalo."); },
+        function () { decir("No se pudo copiar solo. Seleccioná el texto de abajo."); }
+      );
+    } else {
+      decir("Seleccioná el texto de abajo y copialo a mano.");
+    }
+  });
+
+  // ---------- si ya contesto desde este telefono ----------
+
+  $("btn-cambiar").addEventListener("click", function () {
+    $("gracias").hidden = true;
+    form.hidden = false;
+    decir("");
+    previa.hidden = true;
+    $("invitado").focus();
+  });
+
+  function recordarRespuesta() {
+    var guardado;
+    try { guardado = JSON.parse(localStorage.getItem(MEMORIA) || "null"); } catch (e) { return; }
+    if (!guardado || !guardado.invitado) return;
+
+    $("invitado").value = guardado.invitado;
+    $("viene").value = guardado.respuesta;
+    if (guardado.dieta) $("dieta").value = guardado.dieta;
+    sincronizarDieta();
+    agradecer(guardado);
+  }
+
+  pintar();
+  sincronizarDieta();
+  recordarRespuesta();
+  dibujarCurvas();
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(dibujarCurvas).observe(document.querySelector(".hoja"));
+  } else {
+    window.addEventListener("resize", dibujarCurvas);
+  }
+</script>
+</body>
+</html>
