@@ -8,7 +8,8 @@ AQUI="$(cd "$(dirname "$0")" && pwd)"
 
 rm -rf "$AQUI/dist"
 mkdir -p "$AQUI/dist"
-cp "$AQUI/index.html" "$AQUI/portada.png" "$AQUI/dist/"
+cp "$AQUI/index.html" "$AQUI/portada.png" \
+   "$AQUI/favicon.svg" "$AQUI/favicon-32.png" "$AQUI/icon-180.png" "$AQUI/dist/"
 
 echo "Subiendo a Cloudflare Pages: proyecto $PROYECTO"
 wrangler pages deploy "$AQUI/dist" --project-name "$PROYECTO" --branch main --commit-dirty=true
