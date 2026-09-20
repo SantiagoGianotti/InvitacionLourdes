@@ -465,6 +465,60 @@
     color: rgba(205, 174, 188, 0.85);
   }
 
+  /* ---------- escritorio: la hoja se abre en dos ---------- */
+
+  @media (min-width: 900px) {
+    .marco {
+      max-width: 1060px;
+      padding-block: 34px 44px;
+    }
+
+    .hoja { display: flex; align-items: stretch; }
+
+    .cara {
+      flex: 1 1 56%;
+      padding: 46px 52px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* mismo diseno, ritmo vertical mas apretado, para que la tarjeta
+       entre entera en una laptop sin tener que scrollear */
+    .sello   { width: 78px; height: 78px; margin-bottom: 16px; }
+    .nombre  { font-size: 78px; }
+    .grado   { margin-top: 14px; }
+    .red     { margin: 18px auto; }
+    .cuerpo  { margin-top: 26px; }
+    .lugar   { margin-top: 22px; }
+    .plan    { margin-top: 24px; }
+    .traer   { margin-top: 20px; padding: 11px 0; }
+    .enlaces { margin-top: 26px; }
+
+    /* el perforado se para: linea vertical con las muescas arriba y abajo */
+    .perforado {
+      flex: none;
+      align-self: stretch;
+      width: 0;
+      height: auto;
+      border-top: 0;
+      border-left: 1px dashed rgba(249, 235, 239, 0.22);
+    }
+    .perforado::before { top: -11px; left: -11px; right: auto; }
+    .perforado::after  { top: auto; bottom: -11px; left: -11px; right: auto; }
+
+    .talon {
+      flex: 1 1 44%;
+      padding: 46px 48px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .talon h2 { font-size: 30px; }
+    .talon-nota { margin-bottom: 34px; }
+  }
+
   @media (max-width: 430px) {
     .cara   { padding: 42px 22px 38px; }
     .talon  { padding: 32px 22px 36px; }
@@ -667,8 +721,11 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, ancho, alto);
 
-    var cx = ancho * 0.5;
-    var cy = alto * 0.22;
+    // Centradas en la cara de la invitacion: en escritorio la hoja se parte
+    // en dos columnas y centrarlas en la hoja las dejaria sobre el perforado.
+    var cara = document.querySelector(".cara");
+    var cx = cara.offsetLeft + cara.offsetWidth / 2;
+    var cy = cara.offsetTop + cara.offsetHeight * 0.3;
     var paso = Math.max(ancho * 0.064, 22);
     var armonicos = [[3, 1.0, 0.4], [5, 0.6, 2.1], [7, 0.32, 4.3], [2, 1.25, 1.1]];
     var vueltas = Math.ceil(Math.max(ancho, alto) / paso) + 8;
