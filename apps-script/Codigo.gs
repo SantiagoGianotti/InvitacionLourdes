@@ -1,6 +1,10 @@
 /**
  * Recibe las confirmaciones de la invitación y las escribe en esta planilla.
  *
+ * Una fila por persona: si alguien vuelve a confirmar (porque cambió de idea,
+ * o porque el navegador le mostró un error aunque la primera vez sí se guardó),
+ * se actualiza su fila en vez de agregar otra.
+ *
  * Va pegado dentro de la planilla (Extensiones > Apps Script), así que toma
  * la hoja activa y no hace falta configurar ningún ID.
  */
@@ -15,18 +19,27 @@ function doPost(e) {
 
   try {
     var datos = JSON.parse(e.postData.contents);
-    var nombre = String(datos.nombre || '').trim();
+    var nombre = String(datos.nombre || '').trim().slice(0, 120);
 
     if (!nombre) return responder({ ok: false, error: 'falta el nombre' });
 
-    hoja().appendRow([
+    var fila = [
       new Date(),
-      nombre.slice(0, 120),
+      nombre,
       String(datos.respuesta || '').slice(0, 60),
       String(datos.dieta || '').slice(0, 120)
-    ]);
+    ];
 
-    return responder({ ok: true });
+    var h = hoja();
+    var existente = filaDe(h, nombre);
+
+    if (existente) {
+      h.getRange(existente, 1, 1, fila.length).setValues([fila]);
+    } else {
+      h.appendRow(fila);
+    }
+
+    return responder({ ok: true, actualizado: Boolean(existente) });
   } catch (err) {
     return responder({ ok: false, error: String(err) });
   } finally {
@@ -37,6 +50,68 @@ function doPost(e) {
 /** Para abrir la URL en el navegador y ver que el despliegue quedó vivo. */
 function doGet() {
   return responder({ ok: true, confirmaciones: Math.max(hoja().getLastRow() - 1, 0) });
+}
+
+/**
+ * Correr una vez a mano desde el editor (elegirla arriba y darle Ejecutar)
+ * para limpiar los duplicados que ya quedaron. Por cada nombre repetido deja
+ * la fila más reciente y borra las demás.
+ */
+function limpiarDuplicados() {
+  var h = hoja();
+  var ultima = h.getLastRow();
+  if (ultima < 3) { Logger.log('Nada que limpiar.'); return; }
+
+  var filas = h.getRange(2, 1, ultima - 1, COLUMNAS.length).getValues();
+  var masReciente = {};   // clave -> { indice, fecha }
+  var aBorrar = [];
+
+  filas.forEach(function (fila, i) {
+    var indice = i + 2;
+    var k = clave(fila[1]);
+    if (!k) return;
+
+    var fecha = fila[0] instanceof Date ? fila[0].getTime() : 0;
+    var previa = masReciente[k];
+
+    if (!previa) {
+      masReciente[k] = { indice: indice, fecha: fecha };
+    } else if (fecha >= previa.fecha) {
+      aBorrar.push(previa.indice);
+      masReciente[k] = { indice: indice, fecha: fecha };
+    } else {
+      aBorrar.push(indice);
+    }
+  });
+
+  // De abajo hacia arriba, para que borrar una no corra las que faltan.
+  aBorrar.sort(function (a, b) { return b - a; })
+         .forEach(function (indice) { h.deleteRow(indice); });
+
+  Logger.log('Borradas ' + aBorrar.length + ' filas repetidas.');
+}
+
+/** Número de la fila de esa persona, o null si es la primera vez que confirma. */
+function filaDe(h, nombre) {
+  var ultima = h.getLastRow();
+  if (ultima < 2) return null;
+
+  var buscada = clave(nombre);
+  var nombres = h.getRange(2, 2, ultima - 1, 1).getValues();
+
+  for (var i = 0; i < nombres.length; i++) {
+    if (clave(nombres[i][0]) === buscada) return i + 2;
+  }
+  return null;
+}
+
+/** "  José Pérez " y "jose perez" son la misma persona. */
+function clave(nombre) {
+  return String(nombre || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function hoja() {

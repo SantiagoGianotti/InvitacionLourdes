@@ -819,6 +819,7 @@
       return r.json();
     }).then(function (j) {
       if (!j || !j.ok) throw new Error((j && j.error) || "la planilla rechazó la respuesta");
+      return j;
     });
   }
 
@@ -835,8 +836,12 @@
     mostrarPrevia(armarMensaje(datos));
   }
 
+  var enviando = false;
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (enviando) return;
+
     var datos = leerFormulario();
     if (!datos) return;
 
@@ -847,17 +852,21 @@
       return;
     }
 
+    enviando = true;
     boton.disabled = true;
     boton.textContent = "Confirmando...";
     decir("");
 
-    guardar(datos).then(function () {
+    guardar(datos).then(function (respuesta) {
       agradecer(datos);
+      if (respuesta.actualizado) decir("Reemplazamos la respuesta que habías mandado antes.");
     }).catch(function (err) {
       boton.disabled = false;
       boton.textContent = "Confirmar";
       ofrecerWhatsapp(datos, "No pudimos guardar tu respuesta. Mandala por WhatsApp y listo.");
       if (window.console) console.error(err);
+    }).then(function () {
+      enviando = false;
     });
   });
 
